@@ -6,16 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
+
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    //https://b9da-2603-7000-9b3f-a1b-59f9-854-e66a-94e3.ngrok.io
 
     TextView textView;
     Button button;
+    HttpHelper httpHelper = new HttpHelper();
 
     private static final int SPEECH_REQUEST_CODE = 0;
 
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            textView.setText(spokenText);
-            // Do something with spokenText.
+            String message = httpHelper.get("https://fbbf-2603-7000-9b3f-a1b-59f9-854-e66a-94e3.ngrok.io/", spokenText , textView);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         button = findViewById(R.id.button);
