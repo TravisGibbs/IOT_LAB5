@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     Button button;
     HttpHelper httpHelper = new HttpHelper();
+    private static final String TAG = "IOT";
+
 
     private static final int SPEECH_REQUEST_CODE = 0;
 
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            String message = httpHelper.get("https://fbbf-2603-7000-9b3f-a1b-59f9-854-e66a-94e3.ngrok.io/", spokenText , textView);
+            String message = httpHelper.get("https://7b65-160-39-202-101.ngrok.io/", spokenText , textView);
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
