@@ -3,6 +3,7 @@ package com.example.iot_lab;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
@@ -37,12 +38,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            String message = httpHelper.get("https://7b65-160-39-202-101.ngrok.io/", spokenText , textView);
 
+            String message = httpHelper.get("https://c07f-2603-7000-9b3f-a1b-25a2-557-684e-85d9.ngrok.io", spokenText , textView);
+            if (spokenText.contains("tweet")) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/iotgroup14"));
+                startActivity(browserIntent);
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
